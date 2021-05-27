@@ -1,7 +1,18 @@
 import React from 'react';
 
+// App components
+import SearchForm from './SearchForm';
+import Nav from './Nav';
+import PhotoContainer from './PhotoContainer';
+
 function App() {
-  return <h1>Ciao Clara!!!</h1>;
+  return (
+    <div className="container">
+      <SearchForm />
+      <Nav />
+      <PhotoContainer />
+    </div>
+  );
 }
 
 export default App;
