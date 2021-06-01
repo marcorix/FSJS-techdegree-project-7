@@ -13,6 +13,9 @@ const Nav = () => (
       <li>
         <NavLink to={'/venice'}>Venice</NavLink>
       </li>
+      <li>
+        <NavLink to={'/naples'}>Naples</NavLink>
+      </li>
     </ul>
   </nav>
 );
