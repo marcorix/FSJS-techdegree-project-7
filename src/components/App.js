@@ -49,6 +49,10 @@ class App extends Component {
         } else {
           this.setState({ searchPhotos: res.data.photos.photo });
         }
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
       });
   };
 
