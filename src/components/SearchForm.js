@@ -6,7 +6,13 @@ class SearchForm extends Component {
     e.preventDefault();
     this.props.onSearch(this.query.value);
     let path = `search/${this.query.value}`;
-    this.props.history.push(path);
+
+    if (this.props.history.location.pathname.startsWith('/search')) {
+      this.props.history.push(this.query.value);
+    } else {
+      this.props.history.push(path);
+    }
+
     e.currentTarget.reset();
   };
 
