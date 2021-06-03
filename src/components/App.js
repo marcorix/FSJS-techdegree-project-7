@@ -11,10 +11,13 @@ import axios from 'axios';
 import SearchForm from './SearchForm';
 import Nav from './Nav';
 import PhotoContainer from './PhotoContainer';
-import apiKey from './Config';
 import NotFound from './Not-Found';
 
+// API key
+import apiKey from './Config';
+
 class App extends Component {
+  // Initial application state
   state = {
     romePhotos: [],
     florencePhotos: [],
@@ -22,6 +25,7 @@ class App extends Component {
     naplesPhotos: [],
     searchPhotos: [],
     searchQuery: '',
+    // Boolean state to show/hide loading text between get requests
     loading: true,
   };
 
@@ -80,62 +84,64 @@ class App extends Component {
         <div className="container">
           <SearchForm onSearch={this.performSearch} />
           <Nav />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => <Redirect to="/rome" />}
-            ></Route>
-            <Route
-              path="/rome"
-              render={() => (
-                <PhotoContainer pictures={this.state.romePhotos} title="Rome" />
-              )}
-            ></Route>
-            <Route
-              path="/florence"
-              render={() => (
-                <PhotoContainer
-                  pictures={this.state.florencePhotos}
-                  title="Florence"
-                />
-              )}
-            ></Route>
-            <Route
-              path="/venice"
-              render={() => (
-                <PhotoContainer
-                  pictures={this.state.venicePhotos}
-                  title="Venice"
-                />
-              )}
-            ></Route>
-            <Route
-              path="/naples"
-              render={() => (
-                <PhotoContainer
-                  pictures={this.state.naplesPhotos}
-                  title="Naples"
-                />
-              )}
-            ></Route>
-            <Route
-              path="/search/:query"
-              render={() => {
-                if (this.state.loading) {
-                  return <p>Loading...</p>;
-                } else {
-                  return (
-                    <PhotoContainer
-                      pictures={this.state.searchPhotos}
-                      title={this.state.searchQuery}
-                    />
-                  );
-                }
-              }}
-            ></Route>
-            <Route component={NotFound} />
-          </Switch>
+          {/* Show Loading text if isLoading === true */}
+          {this.state.loading ? (
+            <p>Loading...</p>
+          ) : (
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => <Redirect to="/rome" />}
+              ></Route>
+              <Route
+                path="/rome"
+                render={() => (
+                  <PhotoContainer
+                    pictures={this.state.romePhotos}
+                    title="Rome"
+                  />
+                )}
+              ></Route>
+              <Route
+                path="/florence"
+                render={() => (
+                  <PhotoContainer
+                    pictures={this.state.florencePhotos}
+                    title="Florence"
+                  />
+                )}
+              ></Route>
+              <Route
+                path="/venice"
+                render={() => (
+                  <PhotoContainer
+                    pictures={this.state.venicePhotos}
+                    title="Venice"
+                  />
+                )}
+              ></Route>
+              <Route
+                path="/naples"
+                render={() => (
+                  <PhotoContainer
+                    pictures={this.state.naplesPhotos}
+                    title="Naples"
+                  />
+                )}
+              ></Route>
+              <Route
+                path="/search/:query"
+                render={() => (
+                  <PhotoContainer
+                    pictures={this.state.searchPhotos}
+                    title={this.state.searchQuery}
+                  />
+                )}
+              ></Route>
+              <Route component={NotFound} />
+            </Switch>
+          )}
         </div>
       </Router>
     );

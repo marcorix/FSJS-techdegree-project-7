@@ -4,9 +4,14 @@ import { withRouter } from 'react-router-dom';
 class SearchForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
+
+    // Run a search using query entered by user
     this.props.onSearch(this.query.value);
+
+    // Use reference to the form input value to define correct URL
     let path = `search/${this.query.value}`;
 
+    // Check if we already are in the /search path and add this new path to the history stack
     if (this.props.history.location.pathname.startsWith('/search')) {
       this.props.history.push(this.query.value);
     } else {
