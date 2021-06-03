@@ -22,6 +22,7 @@ class App extends Component {
     naplesPhotos: [],
     searchPhotos: [],
     searchQuery: '',
+    loading: true,
   };
 
   componentDidMount() {
@@ -32,26 +33,43 @@ class App extends Component {
   }
 
   performSearch = (query) => {
-    this.setState({ searchQuery: query });
+    this.setState({
+      searchQuery: query,
+    });
     axios
       .get(
         `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`
       )
       .then((res) => {
         if (query === 'rome') {
-          this.setState({ romePhotos: res.data.photos.photo });
+          this.setState({
+            romePhotos: res.data.photos.photo,
+            loading: false,
+          });
         } else if (query === 'florence') {
-          this.setState({ florencePhotos: res.data.photos.photo });
+          this.setState({
+            florencePhotos: res.data.photos.photo,
+            loading: false,
+          });
         } else if (query === 'venice') {
-          this.setState({ venicePhotos: res.data.photos.photo });
+          this.setState({
+            venicePhotos: res.data.photos.photo,
+            loading: false,
+          });
         } else if (query === 'naples') {
-          this.setState({ naplesPhotos: res.data.photos.photo });
+          this.setState({
+            naplesPhotos: res.data.photos.photo,
+            loading: false,
+          });
         } else {
-          this.setState({ searchPhotos: res.data.photos.photo });
+          this.setState({
+            searchPhotos: res.data.photos.photo,
+            loading: false,
+          });
         }
       })
       .catch((error) => {
-        // handle error
+        // handle errors
         console.log(error);
       });
   };
@@ -103,12 +121,18 @@ class App extends Component {
             ></Route>
             <Route
               path="/search/:query"
-              render={() => (
-                <PhotoContainer
-                  pictures={this.state.searchPhotos}
-                  title={this.state.searchQuery}
-                />
-              )}
+              render={() => {
+                if (this.state.loading) {
+                  return <p>Loading...</p>;
+                } else {
+                  return (
+                    <PhotoContainer
+                      pictures={this.state.searchPhotos}
+                      title={this.state.searchQuery}
+                    />
+                  );
+                }
+              }}
             ></Route>
             <Route component={NotFound} />
           </Switch>
