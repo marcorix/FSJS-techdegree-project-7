@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 
-// App components
+// App component
 import SearchForm from './SearchForm';
 import Nav from './Nav';
 import PhotoContainer from './PhotoContainer';
