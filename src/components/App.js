@@ -39,6 +39,7 @@ class App extends Component {
   performSearch = (query) => {
     this.setState({
       searchQuery: query,
+      loading: true,
     });
     axios
       .get(
