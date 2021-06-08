@@ -135,6 +135,7 @@ class App extends Component {
                 path="/search/:query"
                 render={() => (
                   <PhotoContainer
+                    onSearch={this.performSearch}
                     pictures={this.state.searchPhotos}
                     title={this.state.searchQuery}
                   />
