@@ -11,7 +11,7 @@ import axios from 'axios';
 import SearchForm from './SearchForm';
 import Nav from './Nav';
 import PhotoContainer from './PhotoContainer';
-import NotFound from './Not-Found';
+import WrongUrl from './WrongUrl';
 
 // API key
 import apiKey from './Config';
@@ -132,16 +132,17 @@ class App extends Component {
                 )}
               ></Route>
               <Route
-                path="/search/:query"
+                path="/search"
                 render={() => (
                   <PhotoContainer
                     onSearch={this.performSearch}
                     pictures={this.state.searchPhotos}
+                    query={this.state.searchQuery}
                     title={this.state.searchQuery}
                   />
                 )}
               ></Route>
-              <Route component={NotFound} />
+              <Route component={WrongUrl} />
             </Switch>
           )}
         </div>

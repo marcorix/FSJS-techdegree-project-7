@@ -23,7 +23,7 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <form class="search-form" onSubmit={this.handleSubmit}>
+      <form className="search-form" onSubmit={this.handleSubmit}>
         <input
           type="search"
           name="search"
@@ -31,7 +31,7 @@ class SearchForm extends Component {
           ref={(input) => (this.query = input)}
           required
         />
-        <button type="submit" class="search-button">
+        <button type="submit" className="search-button">
           <svg
             fill="#fff"
             height="24"

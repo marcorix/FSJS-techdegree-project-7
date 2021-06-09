@@ -2,36 +2,14 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Photo from './Photo';
+import NotFound from './Not-Found';
 
 class PhotoContainer extends Component {
-  // state = {
-  //   previousQuery: '',
-  // };
-
-  // When component mounts, run search on route path data prop.
-  // componentDidMount() {
-  //   this.props.onSearch(this.props.query);
-  // }
-
-  // componentDidUpdate() {
-  //   let query;
-
-  //   // Check if the query came from URL corresponds to a nav element or a search and assign to 'query' variable
-  //   this.props.match.params.query
-  //     ? (query = this.props.match.params.query)
-  //     : (query = this.props.query);
-
-  //   // Check if the new query is not equal to the previous query so that componentDidUpdate() only updates the photo list once per update
-  //   if (this.state.previousQuery !== query) {
-  //     // Search for photos based on URL query
-  //     this.props.onSearch(query);
-  //     this.setState({ previousQuery: query });
-  //   }
-  // }
-
   render() {
+    const query = this.props.query;
     let photos;
     let title = this.props.title;
+    let currentUrl = this.props.history.location.pathname;
 
     // Check if there are results
     if (this.props.pictures.length > 0) {
@@ -43,10 +21,17 @@ class PhotoContainer extends Component {
         return <Photo key={picture.id} url={url} />;
       });
     } else {
-      title = 'Sorry no photos match your search';
+      title = <NotFound />;
+    }
+
+    if (currentUrl.includes('/search')) {
+      let keyword = currentUrl.replace('/search/', '');
+      if (keyword !== query) {
+        this.props.onSearch(keyword);
+      }
     }
     return (
-      <div class="photo-container">
+      <div className="photo-container">
         <h2>{title}</h2>
         <ul>{photos}</ul>
       </div>
